@@ -1,0 +1,34 @@
+.App {
+  text-align: center;
+  padding: 4em 8em;
+}
+.snake-playground-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.snake-playground{
+  position: relative;
+  background-color: aquamarine;
+  .snake-cell{
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+  }
+  .food-cell{
+    background-color: green;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+  }
+}
+
+.designer {
+  display: flex;
+  margin: 10px;
+  .item {
+    margin: 10px;
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "brain",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./build/cjs/index.js",
+  "types": "./build/esm/index.d.ts",
+  "module": "./build/esm/index.js",
+  "scripts": {
+    "build": "tsc -p ./config/tsconfig.cjs.json && tsc -p ./config/tsconfig.esm.json",
+    "train": "tsc -p ./config/tsconfig.cjs.json && node ./test/train.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
