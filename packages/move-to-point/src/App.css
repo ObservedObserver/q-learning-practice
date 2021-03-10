@@ -1,0 +1,27 @@
+.App {
+  text-align: center;
+  padding: 3em 5em;
+}
+
+.space {
+  display: flex;
+}
+
+.space-block {
+  display: flex;
+  /* flex-grow: 1; */
+  width: 100px;
+  height: 100px;
+  margin: 2px;
+  background-color: antiquewhite;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-role {
+  display: flex;
+  background-color: cadetblue;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
