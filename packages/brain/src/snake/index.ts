@@ -16,12 +16,12 @@ export interface IState {
     /**
      * 蛇身x(min)
      */
-    dsx: number;
+    // dsx: number;
     /**
      * 蛇身y(min)
      */
-    dsy: number;
-    // cbbox: [[number, number], [number, number]];
+    // dsy: number;
+    cbbox: [[number, number], [number, number]];
 }
 
 export { Snake }
@@ -35,16 +35,16 @@ export class SnakeBrain {
     private learning_rate: number = 0.25;
     private gamma: number = 0.9;
     public greedy_rate: number = 0.99;
-    private batch_size: number = 10000;
+    private batch_size: number = 5000;
 
     private buildQTable () {
         this.q_table = new Map();
     }
 
     public getFromQTable (state: IState): number[] {
-        const { x, y, fx, fy, dsx, dsy } = state;
-        // const _key = `x:${x}:_y:${y}:_fx:${fx}:_fy:${fy}:_cbbox:${cbbox.join(',')}:`;
-        const _key = `x:${x}:_y:${y}:_fx:${fx}:_fy:${fy}:_sx:${dsx}:_sy:${dsy}:`;
+        const { x, y, fx, fy, cbbox } = state;
+        const _key = `x:${x}:_y:${y}:_fx:${fx}:_fy:${fy}:_cbbox:${cbbox.join(',')}:`;
+        // const _key = `x:${x}:_y:${y}:_fx:${fx}:_fy:${fy}:_sx:${dsx}:_sy:${dsy}:`;
         // const _key = `x:${x}:_y:${y}:_fx:${fx}:_fy:${fy}:`;
         if (!this.q_table.has(_key)) {
             this.q_table.set(_key, this.actions.map(a => 0))
@@ -124,16 +124,16 @@ export class SnakeBrain {
     public get state (): IState {
         const head = this.snake.snake[0];
         const food = this.snake.food;
-        const [dsx, dsy] = snakeSelfPos(this.snake.snake);
-        // const cbbox = bbox(this.snake.snake.slice(4))
+        // const [dsx, dsy] = snakeSelfPos(this.snake.snake);
+        const cbbox = bbox(this.snake.snake.slice(4))
         return {
             x: head[0],
             y: head[1],
             fx: food[0],
             fy: food[1],
-            dsx,
-            dsy
-            // cbbox
+            // dsx,
+            // dsy
+            cbbox
         };
     }
 
