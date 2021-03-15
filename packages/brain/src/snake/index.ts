@@ -1,6 +1,6 @@
 import { IRoundCounter } from "../interfaces";
 import { Snake } from "./snake";
-import { allZeros, bbox, maxIndex, oppsite, samePoint, snakeSelfPos } from "./utils";
+import { allZeros, bbox, maxIndex, maxIndexIgnore, oppsite, samePoint, snakeSelfPos } from "./utils";
 
 export interface IState {
     x: number;
@@ -32,12 +32,12 @@ export class SnakeBrain {
     public snake: Snake;
     private actions: [number, number][];
     private q_table: Map<string, number[]> = new Map();
-    private learning_rate: number = 0.25;
+    public learning_rate: number = 0.25;
     private gamma: number = 0.9;
     public greedy_rate: number = 0.99;
     private batch_size: number = 5000;
 
-    private buildQTable () {
+    public buildQTable () {
         this.q_table = new Map();
     }
 
@@ -64,7 +64,7 @@ export class SnakeBrain {
         const rand = Math.random();
         const q_row = this.getFromQTable(this.state);
         let actIndex: number = 0;
-        let reward: number = 0.05;
+        let reward: number = 0;
         if (rand > greedy_rate || allZeros(q_row)) {
             actIndex = Math.floor(Math.random() * this.actions.length)
         } else {
@@ -80,7 +80,8 @@ export class SnakeBrain {
             }
         }
         if (oppsite(this.actions[actIndex], this.snake.direction[this.snake.directionIndex])) {
-            actIndex = (actIndex + 2) % this.actions.length;
+            // actIndex = (actIndex + 2) % this.actions.length;
+            actIndex = maxIndexIgnore(q_row, actIndex)
         }
         // 尝试执行蛇运动，给出蛇真实运动之后奖励
         const { hasFood, died, snakePos, suicide, hitWall } = this.snake.mockMove(actIndex);
@@ -142,7 +143,7 @@ export class SnakeBrain {
     }
 
     public train (roundLimit: number, batchCallback?: (data: IRoundCounter) => void) {
-        this.buildQTable();
+        // this.buildQTable();
         let good_ans_count = 0;
         let bad_ans_count = 0;
         let round_counter: IRoundCounter = {

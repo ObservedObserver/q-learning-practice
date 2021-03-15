@@ -91,7 +91,7 @@ export function trainingSession(
 
 export async function loadPreTrainedModel () {
     try {
-        const res = await fetch('/model.json');
+        const res = await fetch('/model-12-12-18.json');
         const result = await res.json();
         return result;
     } catch (error) {

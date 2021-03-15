@@ -46,6 +46,18 @@ export function maxIndex(arr: number[]): number {
     return index;
 }
 
+export function maxIndexIgnore(arr: number[], ignoreIndex: number): number {
+    let index = 0;
+    let _max = -Infinity;
+    for (let i = 0; i < arr.length; i++) {
+      if (i !== ignoreIndex && arr[i] > _max) {
+        _max = arr[i];
+        index = i;
+      }
+    }
+    return index;
+}
+
 export function oppsite (dir1: [number, number], dir2: [number, number]): boolean {
     return dir1[0] + dir2[0] === 0 && dir1[1] + dir2[1] === 0
 }

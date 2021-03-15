@@ -8,13 +8,14 @@ const snake = new RL.Snake({
 });
 
 const preTrainedData = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "./model.json")).toString()
+  fs.readFileSync(path.resolve(__dirname, "./model-12-12.json")).toString()
 );
 
 // console.log(snake);
 const brain = new RL.SnakeBrain(snake);
 brain.importQTable(preTrainedData);
-
+brain.greedy_rate = 0.99999;
+brain.learning_rate = 0.1
 brain.train(100000, (data) => {
   console.log(data)
 });
@@ -22,7 +23,7 @@ brain.train(100000, (data) => {
 const data = brain.exportQTable();
 
 fs.writeFileSync(
-  path.resolve(__dirname, "./model-test.json"),
+  path.resolve(__dirname, "./model-12-12-2.json"),
   JSON.stringify(data)
 );
 

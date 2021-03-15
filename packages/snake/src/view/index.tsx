@@ -51,7 +51,7 @@ const View: React.FC<SnakeProps> = (props: SnakeProps) => {
                     ...batch,
                     game_round: avg_round,
                     food: avg_food,
-                    final_score: avg_food * avg_round
+                    final_score: avg_food * 10 + 0.1 * avg_round
                 }
                 setBoard(list => list.concat(nextBatch));
             },
